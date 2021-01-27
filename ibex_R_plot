@@ -1,0 +1,81 @@
+---
+title: "Read CSV"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r read CSV}
+data <- read.csv("C:\\Users\\Ventsislava\\Downloads\\cars.csv")
+print(data)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+summary(data)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r read CSV}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+data <- read.csv("C:\\Users\\Ventsislava\\Downloads\\ibex.csv")
+print(data)
+summary(data)
+ggplot(aes(x = Date, y = Peak, group=1), data = data)+geom_line(color="#56B4E9")+geom_point()+geom_line(aes(y = Base), color="steelblue")+geom_line(aes(y = Off), color="darkred")
+
+```
+
+
+```{r}
+
+library(ggplot2)
+df <- read.csv("C:\\Users\\Ventsislava\\Downloads\\ibex.csv")
+ggplot(df, aes(Date, group=1)) + 
+  geom_line(aes(y = Price.Peak, colour = "red")) + 
+  geom_line(aes(y = Price.Base, colour = "blue")) + geom_line(aes(y = Price.Off, colour = "green"))
+
+```
+```{r}
+library(ggplot2)
+options(stringsAsFactors = FALSE)
+df <- read.csv("C:\\Users\\Ventsislava\\Downloads\\ibex.csv")
+df <- data.frame(Time=c(df$Date), Base=c(df$Price.Base), Peak=c(df$Price.Peak), Off=c(df$Price.Off))
+x=as.Date(df$Time, format="%m/%d/%Y")
+ggplot(data = df, aes(x=Time, y=value, color=Prices, group = 1)) + ylab('Prices') +     geom_line(aes(y=Base , col='Base'), size=1, alpha=.5) +  geom_line(aes(y=Peak, col='Peak'),  size=1, alpha=.5) + geom_line(aes(y=Off, col='Off'),  size=1, alpha=.5) + theme(legend.position=c(.1,.85))
+
+```
+
+```{r}
+
+M<- ((mean(df$Price.Base)+mean(df$Price.Peak)+mean(df$Price.Off))/3)
+print (M)
+
+```
+```{r}
+
+library(ggplot2)
+library(dplyr)
+options(stringsAsFactors = FALSE)
+df <- read.csv("C:\\Users\\Ventsislava\\Downloads\\ibex.csv")
+df <- data.frame(day=as.Date(c(df$Date), format="%m/%d/%Y"),  Base=c(df$Price.Base), Peak=c(df$Price.Peak), Off=c(df$Price.Off))
+
+
+ggplot(data = df, aes(x=day, y=value, color=Prices, group = 1)) + ylab('Prices') +     geom_line(aes(y=Base , col='Base'), size=1, alpha=.5) +  geom_line(aes(y=Peak, col='Peak'),  size=1, alpha=.5) + geom_line(aes(y=Off, col='Off'),  size=1, alpha=.5) + theme(legend.position=c(.1,.85))
+
+```
+
+
+
