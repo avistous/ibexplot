@@ -1,0 +1,17 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+df = pd.read_csv ('/storage/emulated/0/Download/ibex.csv')
+
+
+# gca stands for 'get current axis'
+ax = plt.gca()
+
+df.plot(kind='line',x='Date',y='Price.Base',ax=ax)
+df.plot(kind='line',x='Date',y='Price.Peak', color='red', ax=ax)
+df.plot(kind='line',x='Date',y='Price.Off', color='green', ax=ax)
+
+
+
+
+plt.show()
