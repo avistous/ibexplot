@@ -1,0 +1,8 @@
+import pandas as pd
+df = pd.read_csv ('/storage/emulated/0/Download/ibex.csv')
+
+x = df['Price.Base'].mean()
+print(df)
+
+print(x)
+Print(df.describe())
